@@ -1,20 +1,526 @@
-<!DOCTYPE html><html>
-    <head><title>Test</title></head>
-    <body>
-        <p>Hello</p>
-        <hr/>
-        <h3>Testing PUSH SSH</h3>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Магазин автозапчастей</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
+    body.dark {
+      background-color: #121212;
+      color: #ddd;
+    }
 
+    header {
+      background-color: #20232a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    body.dark header {
+      background-color: #121212;
+      color: #ddd;
+    }
 
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      flex-grow: 1;
+    }
 
-    </body>
-    
-    
-    
-    
-    </html>
+    /* Кнопка переключателя темы */
+    #themeToggle {
+      position: absolute;
+      right: 150px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
+    #themeToggle:hover {
+      background-color: white;
+      color: #20232a;
+    }
 
+    body.dark #themeToggle {
+      border-color: #ddd;
+      color: #ddd;
+    }
+
+    body.dark #themeToggle:hover {
+      background-color: #ddd;
+      color: #121212;
+    }
+
+    /* Селектор языка */
+    #langSelect {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #langSelect:hover {
+      background-color: white;
+      color: #20232a;
+    }
+
+    body.dark #langSelect {
+      border-color: #ddd;
+      color: #ddd;
+    }
+
+    body.dark #langSelect:hover {
+      background-color: #ddd;
+      color: #121212;
+    }
+
+    .category-nav {
+      background-color: #282c34;
+      padding: 10px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    body.dark .category-nav {
+      background-color: #1b1b1b;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+    }
+
+    .category-nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .category-nav a:hover {
+      color: #28a745;
+    }
+
+    body.dark .category-nav a {
+      color: #ddd;
+    }
+
+    body.dark .category-nav a:hover {
+      color: #28a745;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      padding: 10px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s, background-color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.dark .card {
+      background-color: #222;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      background-color: #fff;
+      display: block;
+      aspect-ratio: 1 / 1;
+      transition: background-color 0.3s;
+    }
+
+    body.dark .card img {
+      background-color: #333;
+    }
+
+    .card-content {
+      padding: 10px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 14px;
+      margin: 0 0 6px;
+    }
+
+    .card-price {
+      color: green;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    body.dark .card-price {
+      color: #7fdb7f;
+    }
+
+    .category-title {
+      font-size: 18px;
+      margin: 15px 10px 5px;
+    }
+
+    body.dark .category-title {
+      color: #ddd;
+    }
+
+    @media (max-width: 1000px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 700px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .phone-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+    }
+
+    body.dark .phone-button {
+      background-color: #3caf50;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 260px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      z-index: 999;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark .popup {
+      background-color: #222;
+      color: #ddd;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    }
+
+    .popup img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .popup h3 {
+      margin: 0 0 10px;
+    }
+
+    .popup p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">Магазин автозапчастей</h1>
+    <button id="themeToggle" aria-label="Переключить тему">Тёмная тема</button>
+    <select id="langSelect" aria-label="Выбор языка">
+      <option value="ru">Русский</option>
+      <option value="uk">Українська</option>
+      <option value="en">English</option>
+    </select>
+  </header>
+
+  <nav class="category-nav">
+    <a href="#brakes" id="navBrakes">Тормозная система</a>
+    <a href="#filters" id="navFilters">Фильтры</a>
+  </nav>
+
+  <div id="brakes" class="category-title">Тормозная система</div>
+  <div class="container">
+    <div class="card">
+      <img src="https://gclnk.com/5eP0Ha28" alt="Тормозные колодки" />
+      <div class="card-content">
+        <div class="card-title" data-key="brakePad">Колодки тормозные передние Bosch</div>
+        <div class="card-price">850 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/XGE26nxx" alt="Тормозной диск" />
+      <div class="card-content">
+        <div class="card-title" data-key="brakeDisc">Диск тормозной передний Brembo</div>
+        <div class="card-price">1 250 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/tRXmBlTu" alt="Суппорт" />
+      <div class="card-content">
+        <div class="card-title" data-key="brakeCaliper">Суппорт тормозной TRW</div>
+        <div class="card-price">1 890 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/5gbM5wWb" alt="Тормозной шланг" />
+      <div class="card-content">
+        <div class="card-title" data-key="brakeHose">Тормозной шланг ATE</div>
+        <div class="card-price">320 грн</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="filters" class="category-title">Фильтры</div>
+  <div class="container">
+    <div class="card">
+      <img src="https://gclnk.com/BfAzjtuz" alt="Масляный фильтр" />
+      <div class="card-content">
+        <div class="card-title" data-key="oilFilter">Фильтр масляный Mann</div>
+        <div class="card-price">190 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/waaENIu7" alt="Воздушный фильтр" />
+      <div class="card-content">
+        <div class="card-title" data-key="airFilter">Фильтр воздушный Filtron</div>
+        <div class="card-price">220 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/J8U6V74E" alt="Салонный фильтр" />
+      <div class="card-content">
+        <div class="card-title" data-key="cabinFilter">Фильтр салона Bosch</div>
+        <div class="card-price">260 грн</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gclnk.com/zmu2saGf" alt="Топливный фильтр" />
+      <div class="card-content">
+        <div class="card-title" data-key="fuelFilter">Фильтр топливный Knecht</div>
+        <div class="card-price">300 грн</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="phone-button" onclick="togglePopup()">📞</button>
+
+  <div class="popup" id="phonePopup">
+    <img src="https://cdn-icons-png.flaticon.com/512/875/875610.png" alt="Менеджер" />
+    <h3 id="contactTitle">Связаться с нами</h3>
+    <p><strong id="phoneLabel">Телефон:</strong> +38 (099) 123-45-67</p>
+    <p id="workHours"><strong>Время работы:</strong><br />Пн–Пт: 9:00 – 18:00<br />Сб: 10:00 – 14:00<br />Вс: выходной</p>
+  </div>
+
+  <script>
+    const translations = {
+      ru: {
+        title: "Магазин автозапчастей",
+        navBrakes: "Тормозная система",
+        navFilters: "Фильтры",
+        brakesTitle: "Тормозная система",
+        filtersTitle: "Фильтры",
+        themeDark: "Тёмная тема",
+        themeLight: "Светлая тема",
+        contactTitle: "Связаться с нами",
+        phoneLabel: "Телефон:",
+        workHours: "Время работы:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Вс: выходной",
+        brakePad: "Колодки тормозные передние Bosch",
+        brakeDisc: "Диск тормозной передний Brembo",
+        brakeCaliper: "Суппорт тормозной TRW",
+        brakeHose: "Тормозной шланг ATE",
+        oilFilter: "Фильтр масляный Mann",
+        airFilter: "Фильтр воздушный Filtron",
+        cabinFilter: "Фильтр салона Bosch",
+        fuelFilter: "Фильтр топливный Knecht"
+      },
+      uk: {
+        title: "Магазин автозапчастин",
+        navBrakes: "Гальмівна система",
+        navFilters: "Фільтри",
+        brakesTitle: "Гальмівна система",
+        filtersTitle: "Фільтри",
+        themeDark: "Темна тема",
+        themeLight: "Світла тема",
+        contactTitle: "Зв’язатися з нами",
+        phoneLabel: "Телефон:",
+        workHours: "Години роботи:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Нд: вихідний",
+        brakePad: "Гальмівні колодки передні Bosch",
+        brakeDisc: "Гальмівний диск передній Brembo",
+        brakeCaliper: "Гальмівний супорт TRW",
+        brakeHose: "Гальмівний шланг ATE",
+        oilFilter: "Масляний фільтр Mann",
+        airFilter: "Повітряний фільтр Filtron",
+        cabinFilter: "Фільтр салону Bosch",
+        fuelFilter: "Паливний фільтр Knecht"
+      },
+      en: {
+        title: "Auto Parts Store",
+        navBrakes: "Brake System",
+        navFilters: "Filters",
+        brakesTitle: "Brake System",
+        filtersTitle: "Filters",
+        themeDark: "Dark theme",
+        themeLight: "Light theme",
+        contactTitle: "Contact us",
+        phoneLabel: "Phone:",
+        workHours: "Working hours:<br>Mon–Fri: 9:00 – 18:00<br>Sat: 10:00 – 14:00<br>Sun: closed",
+        brakePad: "Front brake pads Bosch",
+        brakeDisc: "Front brake disc Brembo",
+        brakeCaliper: "Brake caliper TRW",
+        brakeHose: "Brake hose ATE",
+        oilFilter: "Oil filter Mann",
+        airFilter: "Air filter Filtron",
+        cabinFilter: "Cabin filter Bosch",
+        fuelFilter: "Fuel filter Knecht"
+      }
+    };
+
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const langSelect = document.getElementById('langSelect');
+
+    function setTheme(dark) {
+      if (dark) {
+        body.classList.add('dark');
+        themeToggle.textContent = translations[currentLang].themeLight;
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.classList.remove('dark');
+        themeToggle.textContent = translations[currentLang].themeDark;
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Переключение языка и обновление текста
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+
+      document.getElementById('title').textContent = translations[lang].title;
+      document.getElementById('navBrakes').textContent = translations[lang].navBrakes;
+      document.getElementById('navFilters').textContent = translations[lang].navFilters;
+
+      document.getElementById('brakes').textContent = translations[lang].brakesTitle;
+      document.getElementById('filters').textContent = translations[lang].filtersTitle;
+
+      document.getElementById('contactTitle').textContent = translations[lang].contactTitle;
+      document.getElementById('phoneLabel').textContent = translations[lang].phoneLabel;
+
+      // Используем innerHTML, чтобы сохранить переносы строк в расписании работы
+      document.getElementById('workHours').innerHTML = translations[lang].workHours;
+
+      // Обновим названия карточек
+      document.querySelectorAll('.card-title').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (key && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      // Обновим текст кнопки темы
+      if (body.classList.contains('dark')) {
+        themeToggle.textContent = translations[lang].themeLight;
+      } else {
+        themeToggle.textContent = translations[lang].themeDark;
+      }
+    }
+
+    // Инициализация
+    let currentLang = localStorage.getItem('lang') || 'ru';
+
+    langSelect.value = currentLang;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Загрузить тему
+      const savedTheme = localStorage.getItem('theme');
+      setTheme(savedTheme === 'dark');
+
+      // Загрузить язык
+      setLanguage(currentLang);
+    });
+
+    themeToggle.addEventListener('click', () => {
+      setTheme(!body.classList.contains('dark'));
+    });
+
+    langSelect.addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+    });
+
+    // Тоггл попапа контактов
+    function togglePopup() {
+      const popup = document.getElementById('phonePopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
