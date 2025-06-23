@@ -208,6 +208,19 @@
       color: #7fdb7f;
     }
 
+    /* Новый стиль для наличия */
+    .card-availability {
+      font-size: 12px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .available {
+      color: #28a745; /* зеленый */
+    }
+    .not-available {
+      color: #dc3545; /* красный */
+    }
+
     .category-title {
       font-size: 18px;
       margin: 15px 10px 5px;
@@ -314,6 +327,7 @@
       <div class="card-content">
         <div class="card-title" data-key="brakePad">Колодки тормозные передние Bosch</div>
         <div class="card-price">850 грн</div>
+        <div class="card-availability available" data-key-availability="available">В наличии</div>
       </div>
     </div>
     <div class="card">
@@ -321,6 +335,7 @@
       <div class="card-content">
         <div class="card-title" data-key="brakeDisc">Диск тормозной передний Brembo</div>
         <div class="card-price">1 250 грн</div>
+        <div class="card-availability not-available" data-key-availability="notAvailable">Нет в наличии</div>
       </div>
     </div>
     <div class="card">
@@ -328,6 +343,7 @@
       <div class="card-content">
         <div class="card-title" data-key="brakeCaliper">Суппорт тормозной TRW</div>
         <div class="card-price">1 890 грн</div>
+        <div class="card-availability available" data-key-availability="available">В наличии</div>
       </div>
     </div>
     <div class="card">
@@ -335,6 +351,7 @@
       <div class="card-content">
         <div class="card-title" data-key="brakeHose">Тормозной шланг ATE</div>
         <div class="card-price">320 грн</div>
+        <div class="card-availability not-available" data-key-availability="notAvailable">Нет в наличии</div>
       </div>
     </div>
   </div>
@@ -346,6 +363,7 @@
       <div class="card-content">
         <div class="card-title" data-key="oilFilter">Фильтр масляный Mann</div>
         <div class="card-price">190 грн</div>
+        <div class="card-availability available" data-key-availability="available">В наличии</div>
       </div>
     </div>
     <div class="card">
@@ -353,6 +371,7 @@
       <div class="card-content">
         <div class="card-title" data-key="airFilter">Фильтр воздушный Filtron</div>
         <div class="card-price">220 грн</div>
+        <div class="card-availability not-available" data-key-availability="notAvailable">Нет в наличии</div>
       </div>
     </div>
     <div class="card">
@@ -360,6 +379,7 @@
       <div class="card-content">
         <div class="card-title" data-key="cabinFilter">Фильтр салона Bosch</div>
         <div class="card-price">260 грн</div>
+        <div class="card-availability available" data-key-availability="available">В наличии</div>
       </div>
     </div>
     <div class="card">
@@ -367,6 +387,7 @@
       <div class="card-content">
         <div class="card-title" data-key="fuelFilter">Фильтр топливный Knecht</div>
         <div class="card-price">300 грн</div>
+        <div class="card-availability available" data-key-availability="available">В наличии</div>
       </div>
     </div>
   </div>
@@ -400,7 +421,9 @@
         oilFilter: "Фильтр масляный Mann",
         airFilter: "Фильтр воздушный Filtron",
         cabinFilter: "Фильтр салона Bosch",
-        fuelFilter: "Фильтр топливный Knecht"
+        fuelFilter: "Фильтр топливный Knecht",
+        available: "В наличии",
+        notAvailable: "Нет в наличии"
       },
       uk: {
         title: "Магазин автозапчастин",
@@ -420,7 +443,9 @@
         oilFilter: "Масляний фільтр Mann",
         airFilter: "Повітряний фільтр Filtron",
         cabinFilter: "Фільтр салону Bosch",
-        fuelFilter: "Паливний фільтр Knecht"
+        fuelFilter: "Паливний фільтр Knecht",
+        available: "В наявності",
+        notAvailable: "Немає в наявності"
       },
       en: {
         title: "Auto Parts Store",
@@ -440,7 +465,9 @@
         oilFilter: "Oil filter Mann",
         airFilter: "Air filter Filtron",
         cabinFilter: "Cabin filter Bosch",
-        fuelFilter: "Fuel filter Knecht"
+        fuelFilter: "Fuel filter Knecht",
+        available: "In stock",
+        notAvailable: "Out of stock"
       }
     };
 
@@ -483,6 +510,21 @@
         const key = el.getAttribute('data-key');
         if (key && translations[lang][key]) {
           el.textContent = translations[lang][key];
+        }
+      });
+
+      // Обновим статусы наличия
+      document.querySelectorAll('.card-availability').forEach(el => {
+        const key = el.getAttribute('data-key-availability');
+        if (key && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+          if (key === 'notAvailable') {
+            el.classList.add('not-available');
+            el.classList.remove('available');
+          } else {
+            el.classList.add('available');
+            el.classList.remove('not-available');
+          }
         }
       });
 
