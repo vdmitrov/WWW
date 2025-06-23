@@ -5,344 +5,341 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Магазин автозапчастей</title>
   <style>
-    /* Общие стили */
-    html {
-      scroll-behavior: smooth;
-    }
+   html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-      color: #222;
-      line-height: 1.4;
-    }
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 
-    /* Тёмная тема */
-    body.dark {
-      background-color: #121212;
-      color: #eee;
-    }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #222;
+  line-height: 1.4;
+  font-size: clamp(0.8rem, 1vw + 0.5rem, 1.1rem);
+  min-width: 280px; /* чтобы очень узко не ломалось */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 
-    body.dark .card {
-      background-color: #1e1e1e;
-      border-color: #333;
-    }
+/* Тёмная тема */
+body.dark {
+  background-color: #121212;
+  color: #eee;
+}
 
-    body.dark header,
-    body.dark nav.category-nav {
-      background-color: #1e1e1e;
-      color: #eee;
-    }
+body.dark .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
 
-    /* Хедер */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+body.dark header,
+body.dark nav.category-nav {
+  background-color: #1e1e1e;
+  color: #eee;
+}
 
-    body.dark header {
-      background-color: #1e1e1e;
-      border-bottom-color: #333;
-    }
+/* Хедер */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 0.5rem;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      white-space: nowrap;
-      flex-shrink: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+body.dark header {
+  background-color: #1e1e1e;
+  border-bottom-color: #333;
+}
 
-    header button,
-    header select {
-      font-size: 1rem;
-      padding: 6px 10px;
-      margin-left: 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      border: 1px solid #aaa;
-      background-color: #f0f0f0;
-      color: #222;
-      transition: background-color 0.3s, color 0.3s;
-    }
+header h1 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.8rem);
+  white-space: nowrap;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  min-width: 0;
+}
 
-    body.dark header button,
-    body.dark header select {
-      background-color: #333;
-      border-color: #555;
-      color: #eee;
-    }
+header button,
+header select {
+  font-size: clamp(0.8rem, 1vw + 0.4rem, 1rem);
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  background-color: #f0f0f0;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+  min-width: 5.5rem;
+  max-width: 10rem;
+  flex-shrink: 0;
+}
 
-    /* Навигация категорий */
-    nav.category-nav {
-      display: flex;
-      gap: 20px;
-      padding: 12px 20px;
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 56px; /* Высота header */
-      z-index: 90;
-    }
+body.dark header button,
+body.dark header select {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
 
-    body.dark nav.category-nav {
-      background-color: #1e1e1e;
-      border-color: #333;
-    }
+/* Навигация категорий */
+nav.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: calc(3.5rem + 1rem); /* примерно высота header + gap */
+  z-index: 90;
+  justify-content: center;
+}
 
-    nav.category-nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: 600;
-      font-size: 1.1rem;
-      white-space: nowrap;
-      transition: color 0.3s;
-    }
+body.dark nav.category-nav {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
 
-    nav.category-nav a:hover,
-    nav.category-nav a:focus {
-      text-decoration: underline;
-      outline: none;
-    }
+nav.category-nav a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
 
-    /* Заголовки категорий */
-    .category-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      padding: 16px 20px 8px;
-      color: #333;
-    }
+nav.category-nav a:hover,
+nav.category-nav a:focus {
+  text-decoration: underline;
+  outline: none;
+}
 
-    body.dark .category-title {
-      color: #ddd;
-    }
+/* Заголовки категорий */
+.category-title {
+  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem);
+  font-weight: 700;
+  padding: 1rem 1rem 0.5rem;
+  color: #333;
+  text-align: center;
+}
 
-    /* Контейнер карточек */
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      padding: 0 20px 20px;
-      justify-content: flex-start;
-    }
+body.dark .category-title {
+  color: #ddd;
+}
 
-    /* Карточка товара */
-    .card {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 230px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: box-shadow 0.3s;
-      cursor: default;
-    }
+/* Контейнер карточек */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0 1rem 1.5rem;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    body.dark .card {
-      background-color: #1e1e1e;
-      border-color: #333;
-      box-shadow: none;
-    }
+/* Карточка товара */
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: clamp(200px, 20vw, 280px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+  cursor: default;
+  min-width: 180px;
+  max-width: 100%;
+}
 
-    .card:hover,
-    .card:focus-within {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
+body.dark .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+  box-shadow: none;
+}
 
-    .card img {
-      width: 100%;
-      border-radius: 8px 8px 0 0;
-      object-fit: contain;
-      aspect-ratio: 4 / 3;
-      background-color: #f9f9f9;
-    }
+.card:hover,
+.card:focus-within {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
 
-    .card-content {
-      padding: 10px 12px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+.card img {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  object-fit: contain;
+  aspect-ratio: 4 / 3;
+  background-color: #f9f9f9;
+}
 
-    .card-title {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 6px;
-      min-height: 44px; /* чтобы одинаковая высота */
-      color: #222;
-    }
+.card-content {
+  padding: 0.6rem 0.8rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-    body.dark .card-title {
-      color: #eee;
-    }
+.card-title {
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1vw + 0.4rem, 1.1rem);
+  margin-bottom: 0.3rem;
+  min-height: 3rem;
+  color: #222;
+}
 
-    .card-price {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-      color: #007700;
-    }
+body.dark .card-title {
+  color: #eee;
+}
 
-    .card-availability {
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 4px 6px;
-      border-radius: 4px;
-      width: fit-content;
-      user-select: none;
-    }
+.card-price {
+  font-weight: 700;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.3rem);
+  margin-bottom: 0.3rem;
+  color: #007700;
+}
 
-    .card-availability.available {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
+.card-availability {
+  font-weight: 600;
+  font-size: clamp(0.8rem, 1vw + 0.3rem, 1rem);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  width: fit-content;
+  user-select: none;
+}
 
-    .card-availability.not-available {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
+.card-availability.available {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
 
-    /* Кнопка телефона */
-    .phone-button {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #007bff;
-      color: white;
-      font-size: 1.8rem;
-      border: none;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
-      cursor: pointer;
-      transition: background-color 0.3s;
-      z-index: 150;
-    }
+.card-availability.not-available {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
 
-    .phone-button:hover,
-    .phone-button:focus {
-      background-color: #0056b3;
-      outline: none;
-    }
+/* Кнопка телефона */
+.phone-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: #007bff;
+  color: white;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2rem);
+  border: none;
+  border-radius: 50%;
+  width: clamp(3.2rem, 6vw, 4rem);
+  height: clamp(3.2rem, 6vw, 4rem);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 150;
+}
 
-    /* Попап контактов */
-    .popup {
-      position: fixed;
-      bottom: 95px;
-      right: 25px;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-      width: 260px;
-      padding: 15px 20px;
-      display: none;
-      z-index: 200;
-      color: #222;
-    }
+.phone-button:hover,
+.phone-button:focus {
+  background-color: #0056b3;
+  outline: none;
+}
 
-    body.dark .popup {
-      background-color: #1e1e1e;
-      color: #eee;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
-    }
+/* Попап контактов */
+.popup {
+  position: fixed;
+  bottom: calc(1.5rem + 4.5rem);
+  right: 1.5rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  width: clamp(240px, 80vw, 320px);
+  padding: 1rem 1.25rem;
+  display: none;
+  z-index: 200;
+  color: #222;
+}
 
-    .popup img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: block;
-      margin-bottom: 10px;
-      object-fit: cover;
-    }
+body.dark .popup {
+  background-color: #1e1e1e;
+  color: #eee;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+}
 
-    .popup h3 {
-      margin: 0 0 8px 0;
-      font-size: 1.3rem;
-    }
+.popup img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
 
-    .popup p {
-      margin: 4px 0;
-      font-size: 0.95rem;
-    }
+.popup h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: clamp(1.1rem, 2vw + 0.5rem, 1.3rem);
+}
 
-    /* Адаптивность для мобильных */
-    @media (max-width: 768px) {
-      header {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
+.popup p {
+  margin: 0.25rem 0;
+  font-size: clamp(0.85rem, 1vw + 0.3rem, 1rem);
+  line-height: 1.3;
+}
 
-      header h1 {
-        flex-basis: 100%;
-        text-align: center;
-        font-size: 1.3rem;
-      }
+/* Медиа для сверхмаленьких экранов (смартфоны узкие) */
+@media (max-width: 320px) {
+  header h1 {
+    font-size: 1rem;
+  }
 
-      header button,
-      header select {
-        flex: 1 1 auto;
-        max-width: 150px;
-      }
+  nav.category-nav a {
+    font-size: 0.9rem;
+  }
 
-      nav.category-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        top: 104px; /* увеличиваем сдвиг под header(56px) + два ряда */
-        padding: 10px 10px;
-      }
+  .card {
+    width: 100%;
+  }
 
-      nav.category-nav a {
-        font-size: 1rem;
-      }
+  .card-title {
+    min-height: auto;
+  }
 
-      .container {
-        justify-content: center;
-        padding: 0 10px 20px;
-      }
+  .phone-button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
 
-      .card {
-        width: 100%;
-        max-width: 350px;
-      }
+  .popup {
+    width: 90vw;
+    right: 5vw;
+    bottom: 4.5rem;
+  }
+}
 
-      .category-title {
-        padding-left: 10px;
-        font-size: 1.2rem;
-        text-align: center;
-      }
-
-      .phone-button {
-        bottom: 15px;
-        right: 15px;
-        width: 48px;
-        height: 48px;
-        font-size: 1.4rem;
-      }
-
-      .popup {
-        width: 90vw;
-        right: 5vw;
-        bottom: 70px;
-        padding: 15px;
-      }
-    }
+/* Медиа для больших экранов (десятки дюймов, десктопы широкие) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1300px;
+  }
+}
   </style>
 </head>
 <body>
