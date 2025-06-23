@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Магазин автозапчастей</title>
   <style>
+    /* Общие стили */
     html {
       scroll-behavior: smooth;
     }
@@ -14,179 +15,161 @@
       margin: 0;
       padding: 0;
       background-color: #f5f5f5;
-      color: #000;
-      transition: background-color 0.3s, color 0.3s;
+      color: #222;
+      line-height: 1.4;
     }
 
+    /* Тёмная тема */
     body.dark {
       background-color: #121212;
-      color: #ddd;
-    }
-
-    header {
-      background-color: #20232a;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    body.dark header {
-      background-color: #121212;
-      color: #ddd;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 24px;
-      flex-grow: 1;
-    }
-
-    /* Кнопка переключателя темы */
-    #themeToggle {
-      position: absolute;
-      right: 150px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 6px 12px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    #themeToggle:hover {
-      background-color: white;
-      color: #20232a;
-    }
-
-    body.dark #themeToggle {
-      border-color: #ddd;
-      color: #ddd;
-    }
-
-    body.dark #themeToggle:hover {
-      background-color: #ddd;
-      color: #121212;
-    }
-
-    /* Селектор языка */
-    #langSelect {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 6px 12px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    #langSelect:hover {
-      background-color: white;
-      color: #20232a;
-    }
-
-    body.dark #langSelect {
-      border-color: #ddd;
-      color: #ddd;
-    }
-
-    body.dark #langSelect:hover {
-      background-color: #ddd;
-      color: #121212;
-    }
-
-    .category-nav {
-      background-color: #282c34;
-      padding: 10px 20px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    body.dark .category-nav {
-      background-color: #1b1b1b;
-      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-    }
-
-    .category-nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: color 0.3s;
-    }
-
-    .category-nav a:hover {
-      color: #28a745;
-    }
-
-    body.dark .category-nav a {
-      color: #ddd;
-    }
-
-    body.dark .category-nav a:hover {
-      color: #28a745;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 5px;
-      padding: 10px;
-    }
-
-    .card {
-      background-color: white;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.2s, background-color 0.3s;
-      display: flex;
-      flex-direction: column;
+      color: #eee;
     }
 
     body.dark .card {
-      background-color: #222;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+      background-color: #1e1e1e;
+      border-color: #333;
     }
 
-    .card:hover {
-      transform: translateY(-3px);
+    body.dark header,
+    body.dark nav.category-nav {
+      background-color: #1e1e1e;
+      color: #eee;
+    }
+
+    /* Хедер */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    body.dark header {
+      background-color: #1e1e1e;
+      border-bottom-color: #333;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      white-space: nowrap;
+      flex-shrink: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    header button,
+    header select {
+      font-size: 1rem;
+      padding: 6px 10px;
+      margin-left: 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      background-color: #f0f0f0;
+      color: #222;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark header button,
+    body.dark header select {
+      background-color: #333;
+      border-color: #555;
+      color: #eee;
+    }
+
+    /* Навигация категорий */
+    nav.category-nav {
+      display: flex;
+      gap: 20px;
+      padding: 12px 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 56px; /* Высота header */
+      z-index: 90;
+    }
+
+    body.dark nav.category-nav {
+      background-color: #1e1e1e;
+      border-color: #333;
+    }
+
+    nav.category-nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+
+    nav.category-nav a:hover,
+    nav.category-nav a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Заголовки категорий */
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 16px 20px 8px;
+      color: #333;
+    }
+
+    body.dark .category-title {
+      color: #ddd;
+    }
+
+    /* Контейнер карточек */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 0 20px 20px;
+      justify-content: flex-start;
+    }
+
+    /* Карточка товара */
+    .card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 230px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s;
+      cursor: default;
+    }
+
+    body.dark .card {
+      background-color: #1e1e1e;
+      border-color: #333;
+      box-shadow: none;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     .card img {
       width: 100%;
-      height: 160px;
+      border-radius: 8px 8px 0 0;
       object-fit: contain;
-      background-color: #fff;
-      display: block;
-      aspect-ratio: 1 / 1;
-      transition: background-color 0.3s;
-    }
-
-    body.dark .card img {
-      background-color: #333;
+      aspect-ratio: 4 / 3;
+      background-color: #f9f9f9;
     }
 
     .card-content {
-      padding: 10px;
+      padding: 10px 12px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -194,113 +177,171 @@
     }
 
     .card-title {
-      font-size: 14px;
-      margin: 0 0 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      min-height: 44px; /* чтобы одинаковая высота */
+      color: #222;
+    }
+
+    body.dark .card-title {
+      color: #eee;
     }
 
     .card-price {
-      color: green;
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      color: #007700;
     }
 
-    body.dark .card-price {
-      color: #7fdb7f;
-    }
-
-    /* Новый стиль для наличия */
     .card-availability {
-      font-size: 12px;
-      margin-top: 4px;
       font-weight: 600;
-    }
-    .available {
-      color: #28a745; /* зеленый */
-    }
-    .not-available {
-      color: #dc3545; /* красный */
-    }
-
-    .category-title {
-      font-size: 18px;
-      margin: 15px 10px 5px;
+      font-size: 0.9rem;
+      padding: 4px 6px;
+      border-radius: 4px;
+      width: fit-content;
+      user-select: none;
     }
 
-    body.dark .category-title {
-      color: #ddd;
+    .card-availability.available {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
     }
 
-    @media (max-width: 1000px) {
-      .container {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    @media (max-width: 700px) {
-      .container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 480px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
+    .card-availability.not-available {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
     }
 
+    /* Кнопка телефона */
     .phone-button {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #28a745;
+      bottom: 25px;
+      right: 25px;
+      background-color: #007bff;
       color: white;
+      font-size: 1.8rem;
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
+      width: 56px;
+      height: 56px;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s;
+      z-index: 150;
     }
 
-    body.dark .phone-button {
-      background-color: #3caf50;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+    .phone-button:hover,
+    .phone-button:focus {
+      background-color: #0056b3;
+      outline: none;
     }
 
+    /* Попап контактов */
     .popup {
-      display: none;
       position: fixed;
-      bottom: 90px;
-      right: 20px;
+      bottom: 95px;
+      right: 25px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
       width: 260px;
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      padding: 15px;
-      z-index: 999;
-      color: #000;
-      transition: background-color 0.3s, color 0.3s;
+      padding: 15px 20px;
+      display: none;
+      z-index: 200;
+      color: #222;
     }
 
     body.dark .popup {
-      background-color: #222;
-      color: #ddd;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+      background-color: #1e1e1e;
+      color: #eee;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
     }
 
     .popup img {
-      width: 100%;
-      border-radius: 6px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: block;
       margin-bottom: 10px;
+      object-fit: cover;
     }
 
     .popup h3 {
-      margin: 0 0 10px;
+      margin: 0 0 8px 0;
+      font-size: 1.3rem;
     }
 
     .popup p {
-      margin: 5px 0;
-      font-size: 14px;
+      margin: 4px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Адаптивность для мобильных */
+    @media (max-width: 768px) {
+      header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      header h1 {
+        flex-basis: 100%;
+        text-align: center;
+        font-size: 1.3rem;
+      }
+
+      header button,
+      header select {
+        flex: 1 1 auto;
+        max-width: 150px;
+      }
+
+      nav.category-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        top: 104px; /* увеличиваем сдвиг под header(56px) + два ряда */
+        padding: 10px 10px;
+      }
+
+      nav.category-nav a {
+        font-size: 1rem;
+      }
+
+      .container {
+        justify-content: center;
+        padding: 0 10px 20px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 350px;
+      }
+
+      .category-title {
+        padding-left: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .phone-button {
+        bottom: 15px;
+        right: 15px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+      }
+
+      .popup {
+        width: 90vw;
+        right: 5vw;
+        bottom: 70px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -322,6 +363,7 @@
 
   <div id="brakes" class="category-title">Тормозная система</div>
   <div class="container">
+    <!-- Карточки тормозной системы -->
     <div class="card">
       <img src="https://gclnk.com/5eP0Ha28" alt="Тормозные колодки" />
       <div class="card-content">
@@ -358,6 +400,7 @@
 
   <div id="filters" class="category-title">Фильтры</div>
   <div class="container">
+    <!-- Карточки фильтров -->
     <div class="card">
       <img src="https://gclnk.com/BfAzjtuz" alt="Масляный фильтр" />
       <div class="card-content">
@@ -392,13 +435,35 @@
     </div>
   </div>
 
-  <button class="phone-button" onclick="togglePopup()">📞</button>
+  <button
+    class="phone-button"
+    id="phoneButton"
+    aria-haspopup="dialog"
+    aria-controls="phonePopup"
+    aria-expanded="false"
+    aria-label="Связаться по телефону"
+  >
+    📞
+  </button>
 
-  <div class="popup" id="phonePopup">
+  <div
+    class="popup"
+    id="phonePopup"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    tabindex="-1"
+    style="display:none;"
+  >
     <img src="https://cdn-icons-png.flaticon.com/512/875/875610.png" alt="Менеджер" />
     <h3 id="contactTitle">Связаться с нами</h3>
     <p><strong id="phoneLabel">Телефон:</strong> +38 (099) 123-45-67</p>
-    <p id="workHours"><strong>Время работы:</strong><br />Пн–Пт: 9:00 – 18:00<br />Сб: 10:00 – 14:00<br />Вс: выходной</p>
+    <p id="workHours">
+      <strong>Время работы:</strong><br />
+      Пн–Пт: 9:00 – 18:00<br />
+      Сб: 10:00 – 14:00<br />
+      Вс: выходной
+    </p>
   </div>
 
   <script>
@@ -413,7 +478,8 @@
         themeLight: "Светлая тема",
         contactTitle: "Связаться с нами",
         phoneLabel: "Телефон:",
-        workHours: "Время работы:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Вс: выходной",
+        workHours:
+          "Время работы:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Вс: выходной",
         brakePad: "Колодки тормозные передние Bosch",
         brakeDisc: "Диск тормозной передний Brembo",
         brakeCaliper: "Суппорт тормозной TRW",
@@ -423,7 +489,7 @@
         cabinFilter: "Фильтр салона Bosch",
         fuelFilter: "Фильтр топливный Knecht",
         available: "В наличии",
-        notAvailable: "Нет в наличии"
+        notAvailable: "Нет в наличии",
       },
       uk: {
         title: "Магазин автозапчастин",
@@ -435,7 +501,8 @@
         themeLight: "Світла тема",
         contactTitle: "Зв’язатися з нами",
         phoneLabel: "Телефон:",
-        workHours: "Години роботи:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Нд: вихідний",
+        workHours:
+          "Години роботи:<br>Пн–Пт: 9:00 – 18:00<br>Сб: 10:00 – 14:00<br>Нд: вихідний",
         brakePad: "Гальмівні колодки передні Bosch",
         brakeDisc: "Гальмівний диск передній Brembo",
         brakeCaliper: "Гальмівний супорт TRW",
@@ -445,7 +512,7 @@
         cabinFilter: "Фільтр салону Bosch",
         fuelFilter: "Паливний фільтр Knecht",
         available: "В наявності",
-        notAvailable: "Немає в наявності"
+        notAvailable: "Немає в наявності",
       },
       en: {
         title: "Auto Parts Store",
@@ -453,116 +520,158 @@
         navFilters: "Filters",
         brakesTitle: "Brake System",
         filtersTitle: "Filters",
-        themeDark: "Dark theme",
-        themeLight: "Light theme",
-        contactTitle: "Contact us",
+        themeDark: "Dark Theme",
+        themeLight: "Light Theme",
+        contactTitle: "Contact Us",
         phoneLabel: "Phone:",
-        workHours: "Working hours:<br>Mon–Fri: 9:00 – 18:00<br>Sat: 10:00 – 14:00<br>Sun: closed",
-        brakePad: "Front brake pads Bosch",
-        brakeDisc: "Front brake disc Brembo",
-        brakeCaliper: "Brake caliper TRW",
-        brakeHose: "Brake hose ATE",
-        oilFilter: "Oil filter Mann",
-        airFilter: "Air filter Filtron",
-        cabinFilter: "Cabin filter Bosch",
-        fuelFilter: "Fuel filter Knecht",
-        available: "In stock",
-        notAvailable: "Out of stock"
-      }
+        workHours:
+          "Working hours:<br>Mon–Fri: 9:00 – 18:00<br>Sat: 10:00 – 14:00<br>Sun: closed",
+        brakePad: "Front Brake Pads Bosch",
+        brakeDisc: "Front Brake Disc Brembo",
+        brakeCaliper: "Brake Caliper TRW",
+        brakeHose: "Brake Hose ATE",
+        oilFilter: "Oil Filter Mann",
+        airFilter: "Air Filter Filtron",
+        cabinFilter: "Cabin Filter Bosch",
+        fuelFilter: "Fuel Filter Knecht",
+        available: "Available",
+        notAvailable: "Not Available",
+      },
     };
 
     const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    const langSelect = document.getElementById('langSelect');
+    const themeToggle = document.getElementById("themeToggle");
+    const langSelect = document.getElementById("langSelect");
+    const phonePopup = document.getElementById("phonePopup");
+    const phoneButton = document.getElementById("phoneButton");
 
-    function setTheme(dark) {
-      if (dark) {
-        body.classList.add('dark');
+    let currentLang = localStorage.getItem("lang") || "ru";
+
+    function setTheme(darkMode) {
+      if (darkMode) {
+        body.classList.add("dark");
         themeToggle.textContent = translations[currentLang].themeLight;
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem("theme", "dark");
       } else {
-        body.classList.remove('dark');
+        body.classList.remove("dark");
         themeToggle.textContent = translations[currentLang].themeDark;
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem("theme", "light");
       }
     }
 
-    // Переключение языка и обновление текста
     function setLanguage(lang) {
       currentLang = lang;
-      localStorage.setItem('lang', lang);
+      localStorage.setItem("lang", lang);
 
-      document.getElementById('title').textContent = translations[lang].title;
-      document.getElementById('navBrakes').textContent = translations[lang].navBrakes;
-      document.getElementById('navFilters').textContent = translations[lang].navFilters;
+      document.getElementById("title").textContent = translations[lang].title;
+      document.getElementById("navBrakes").textContent =
+        translations[lang].navBrakes;
+      document.getElementById("navFilters").textContent =
+        translations[lang].navFilters;
 
-      document.getElementById('brakes').textContent = translations[lang].brakesTitle;
-      document.getElementById('filters').textContent = translations[lang].filtersTitle;
+      document.getElementById("brakes").textContent =
+        translations[lang].brakesTitle;
+      document.getElementById("filters").textContent =
+        translations[lang].filtersTitle;
 
-      document.getElementById('contactTitle').textContent = translations[lang].contactTitle;
-      document.getElementById('phoneLabel').textContent = translations[lang].phoneLabel;
+      document.getElementById("contactTitle").textContent =
+        translations[lang].contactTitle;
+      document.getElementById("phoneLabel").textContent =
+        translations[lang].phoneLabel;
+      document.getElementById("workHours").innerHTML =
+        translations[lang].workHours;
 
-      // Используем innerHTML, чтобы сохранить переносы строк в расписании работы
-      document.getElementById('workHours').innerHTML = translations[lang].workHours;
-
-      // Обновим названия карточек
-      document.querySelectorAll('.card-title').forEach(el => {
-        const key = el.getAttribute('data-key');
+      document.querySelectorAll(".card-title").forEach((el) => {
+        const key = el.getAttribute("data-key");
         if (key && translations[lang][key]) {
           el.textContent = translations[lang][key];
         }
       });
 
-      // Обновим статусы наличия
-      document.querySelectorAll('.card-availability').forEach(el => {
-        const key = el.getAttribute('data-key-availability');
+      document.querySelectorAll(".card-availability").forEach((el) => {
+        const key = el.getAttribute("data-key-availability");
         if (key && translations[lang][key]) {
           el.textContent = translations[lang][key];
-          if (key === 'notAvailable') {
-            el.classList.add('not-available');
-            el.classList.remove('available');
+          if (key === "notAvailable") {
+            el.classList.add("not-available");
+            el.classList.remove("available");
           } else {
-            el.classList.add('available');
-            el.classList.remove('not-available');
+            el.classList.add("available");
+            el.classList.remove("not-available");
           }
         }
       });
 
-      // Обновим текст кнопки темы
-      if (body.classList.contains('dark')) {
+      if (body.classList.contains("dark")) {
         themeToggle.textContent = translations[lang].themeLight;
       } else {
         themeToggle.textContent = translations[lang].themeDark;
       }
     }
 
-    // Инициализация
-    let currentLang = localStorage.getItem('lang') || 'ru';
-
-    langSelect.value = currentLang;
-
-    window.addEventListener('DOMContentLoaded', () => {
-      // Загрузить тему
-      const savedTheme = localStorage.getItem('theme');
-      setTheme(savedTheme === 'dark');
-
-      // Загрузить язык
-      setLanguage(currentLang);
-    });
-
-    themeToggle.addEventListener('click', () => {
-      setTheme(!body.classList.contains('dark'));
-    });
-
-    langSelect.addEventListener('change', (e) => {
-      setLanguage(e.target.value);
-    });
-
-    // Тоггл попапа контактов
     function togglePopup() {
-      const popup = document.getElementById('phonePopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      const isOpen = phonePopup.style.display === "block";
+
+      if (isOpen) {
+        phonePopup.style.display = "none";
+        phonePopup.setAttribute("aria-hidden", "true");
+        phonePopup.tabIndex = -1;
+        phoneButton.setAttribute("aria-expanded", "false");
+        phoneButton.focus();
+      } else {
+        phonePopup.style.display = "block";
+        phonePopup.setAttribute("aria-hidden", "false");
+        phonePopup.tabIndex = 0;
+        phonePopup.focus();
+        phoneButton.setAttribute("aria-expanded", "true");
+      }
     }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      setTheme(savedTheme === "dark");
+
+      langSelect.value = currentLang;
+      setLanguage(currentLang);
+
+      // Навигация по категориям с плавным скроллом
+      document.querySelectorAll("nav.category-nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute("href").substring(1);
+          const targetElem = document.getElementById(targetId);
+          if (targetElem) {
+            targetElem.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      // Закрывать попап по клику вне
+      document.addEventListener("click", (e) => {
+        if (
+          phonePopup.style.display === "block" &&
+          !phonePopup.contains(e.target) &&
+          e.target !== phoneButton
+        ) {
+          togglePopup();
+        }
+      });
+
+      // Закрывать по Esc
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && phonePopup.style.display === "block") {
+          togglePopup();
+        }
+      });
+    });
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(!body.classList.contains("dark"));
+    });
+
+    phoneButton.addEventListener("click", togglePopup);
+
+    langSelect.addEventListener("change", (e) => setLanguage(e.target.value));
   </script>
 </body>
 </html>
